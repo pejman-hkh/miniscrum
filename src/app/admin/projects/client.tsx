@@ -95,7 +95,7 @@ export default function ProjectsClient({ projects }: { projects: ProjectType[] }
     return (
         <div>
             <Nav title={t('projects')}>
-                <button onClick={() => setProjectModal({ id: "" } as ProjectType)} className="bg-blue-500 text-white px-4 py-2 rounded">
+                <button onClick={() => setProjectModal({ id: "" } as ProjectType)} className="bg-blue-500 text-white px-4 py-2 rounded-2xl">
                     {t('new_project')}
                 </button>
             </Nav>
