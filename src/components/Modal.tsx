@@ -41,7 +41,7 @@ export default function Modal({ isOpen, onClose, children, size = 6 }: ModalProp
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/70">
+        <div className="p-2 fixed inset-0 flex items-center justify-center z-50 bg-black/70">
             <div className="flex w-180 justify-center">
                 <div
                     ref={modalRef}
