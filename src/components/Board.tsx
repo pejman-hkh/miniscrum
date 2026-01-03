@@ -3,6 +3,7 @@
 import FormError, { FormErrorType } from "@/components/FormError";
 import AppLink from "@/components/Link";
 import Modal from "@/components/Modal";
+import DataContext, { DataContextType } from "@/context/DataContext";
 import clientApi from "@/lib/api/clien";
 import ProjectType from "@/types/project";
 import { TaskType } from "@/types/task";
@@ -21,7 +22,8 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { EditIcon, PlusIcon } from "lucide-react";
-import { useState } from "react";
+import { useTranslations } from "next-intl";
+import { use, useContext, useState } from "react";
 
 const COLUMNS = [
     "BACKLOG",
@@ -63,14 +65,16 @@ function TaskModal({ isOpen, onClose, onCreate, task, users }: { isOpen: boolean
         }
     }
 
+    const t = useTranslations('admin.projects.board');
+
     return (
         <Modal size={12} isOpen={isOpen} onClose={onClose}>
-            <h2 className="text-xl font-bold mb-4">{formData?.id ? `Update ${formData?.title}` : 'New Task'}</h2>
+            <h2 className="text-xl font-bold mb-4">{formData?.id ? `${t('update')} ${formData?.title}` : t('new_task')}</h2>
             <FormError error={error} />
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                 <input
                     className="border border-gray-300 p-2 rounded"
-                    placeholder="Task title"
+                    placeholder={t('title')}
                     value={formData?.title as string || ""}
                     onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                     autoFocus
@@ -80,14 +84,14 @@ function TaskModal({ isOpen, onClose, onCreate, task, users }: { isOpen: boolean
                     value={formData?.description as string || ""}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                     className="border border-gray-300 p-2 rounded h-50"
-                    placeholder="Description"
+                    placeholder={t('description')}
                 />
 
                 <select
                     value={formData?.userId as string || ""}
                     onChange={(e) => setFormData({ ...formData, userId: e.target.value })}
                     className="border border-gray-300 p-2 rounded">
-                    <option>Select User</option>
+                    <option>{t('to_user')}</option>
                     {users?.map((user) => <option key={user?.id} value={user?.id}>{user?.name}</option>)}
                 </select>
                 <div className="flex justify-end gap-2 mt-2">
@@ -96,13 +100,13 @@ function TaskModal({ isOpen, onClose, onCreate, task, users }: { isOpen: boolean
                         className="px-4 py-2 rounded border border-gray-300"
                         onClick={onClose}
                     >
-                        Cancel
+                        {t('cancel')}
                     </button>
                     <button
                         type="submit"
                         className="px-4 py-2 bg-blue-500 text-white rounded"
                     >
-                        {task?.id ? 'Update' : 'Create'}
+                        {task?.id ? t('update') : t('create')}
                     </button>
                 </div>
             </form>
@@ -119,6 +123,11 @@ function TaskCard({ task, onEdit }: { task: TaskType, onEdit: () => void }) {
         transition
     };
 
+    const t = useTranslations('admin.projects.board');
+
+    console.log("Rendering TaskCard for task:", task);
+    const context = useContext(DataContext) as DataContextType;
+    console.log("Context in TaskCard:", context);
     return (
         <div
             ref={setNodeRef}
@@ -131,7 +140,7 @@ function TaskCard({ task, onEdit }: { task: TaskType, onEdit: () => void }) {
                 {task.title}
                 {task.description && <div className="text-sm text-gray-600 mt-1">{task.description}</div>}
 
-                {task?.user?.name && <div className="text-xs text-gray-500 mt-1">Assigned to: {task.user.name}</div>}
+                {task?.user?.name && <div className={`text-xs text-gray-500 mt-1 ${(context?.user?.id === task.userId ? '!text-green-500' : '')}`}>{t('assigned_to')} {task.user.name}</div>}
             </div>
             <div>
                 <button onClick={onEdit} onPointerDown={(e) => e.stopPropagation()}>
@@ -268,6 +277,7 @@ export default function ProjectBoard({ project, users }: { project: ProjectType,
                 setBoard(grouped);
             });
     }
+    const t = useTranslations('admin.projects.board');
 
     return (<div>
 
@@ -276,11 +286,11 @@ export default function ProjectBoard({ project, users }: { project: ProjectType,
             onDragOver={onDragOver}
             onDragEnd={onDragEnd}
         >
-            <div className="grid grid-cols-5 gap-4 p-4">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-4 p-4">
                 {COLUMNS.map(col => (
                     <BoardColumn key={col} id={col}>
                         <h3 className="font-bold mb-2 flex justify-between items-center">
-                            {col}
+                            {t(col)}
                             {col === 'BACKLOG' && <button onClick={() => setTaskModal({ project_id: project.id } as TaskType)}>
                                 <PlusIcon size={16} className="text-green-500" />
                             </button>}
