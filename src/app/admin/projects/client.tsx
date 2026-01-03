@@ -7,7 +7,7 @@ import Nav from "@/components/Nat";
 import clientApi from "@/lib/api/clien";
 import ProjectType from "@/types/project";
 import { EditIcon } from "lucide-react";
-import { use, useState } from "react";
+import { useState } from "react";
 import { useTranslations } from "use-intl";
 
 
