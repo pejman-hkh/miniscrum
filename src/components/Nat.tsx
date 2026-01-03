@@ -26,7 +26,7 @@ export default function Nav({ title, children }: { title?: string, children?: Re
 
     return (
         <nav className="bg-white border-b border-gray-200 p-4 mb-4">
-            <div className="mt-2  flex justify-between items-center">
+            <div className="mt-2 flex flex-col md:flex-row gap-2 justify-between items-center">
                 <div className="flex gap-4 items-center">
                     <h1 className="text-2xl font-bold">{title}</h1>
                     {children}
