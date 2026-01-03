@@ -6,7 +6,7 @@ export interface ProjectType {
     title?: string;
     tasks: TaskType[];
     user?: UserType;
-    user_id: string;
+    userId: string;
     createdAt: Date;
 };
 
