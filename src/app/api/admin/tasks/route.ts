@@ -8,9 +8,9 @@ export async function GET() {
 
 export async function POST(req: Request) {
     //get user id from token in authorization header
-    const userId = await getUser(req);
 
-    const { title, project_id, description } = await req.json();
+    const { title, project_id, userId, description } = await req.json();
+    const nuserId = userId ?? await getUser(req);
 
     if (!title) {
         return Response.json(
@@ -43,9 +43,9 @@ export async function POST(req: Request) {
                 connect: { id: project_id }
             },
             title,
-            description,
+            description: description || "",
             user: {
-                connect: { id: userId }
+                connect: { id: nuserId }
             }
         }
     });
@@ -69,7 +69,7 @@ export async function PUT(req: Request) {
 
     const task = await prisma.task.update({
         where: { id },
-        data: { title, description, user: { connect: { id: userId } } }
+        data: { title, description: description || "", user: { connect: { id: userId } } }
     });
 
     return Response.json({ message: 'Updated successfully', data: task });
