@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import Lang from "./Lang";
 
 export default function Nav({ title, children }: { title?: string, children?: React.ReactNode }) {
     const t = useTranslations('common');
@@ -13,7 +14,7 @@ export default function Nav({ title, children }: { title?: string, children?: Re
                     {children}
                 </div>
                 <div className="flex items-center">
-
+                    <Lang />
                     <button onClick={async () => {
                         localStorage.removeItem("token");
                         await fetch("/api/auth/logout", { method: "POST" });
