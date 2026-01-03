@@ -1,0 +1,56 @@
+{
+    "direction": "rtl",
+    "auth": {
+        "login": {
+            "title": "MiniScrum",
+            "login": "ورود",
+            "email": "ایمیل",
+            "password": "رمز",
+            "submit": "ورود",
+            "no_account": "ثبت نام نکرده اید ؟",
+            "register": "عضویت"
+        },
+        "register": {
+            "title": "MiniScrum",
+            "register": "ثبت نام",
+            "name": "نام",
+            "email": "ایمیل",
+            "password": "رمز ورود",
+            "submit": "ثبت نام",
+            "login": "قبلا ثبت نام کرده اید ؟"
+        }
+    },
+    "common": {
+        "logout": "خروج",
+        "english": "انگلیسی",
+        "persian": "فارسی",
+        "select_language": "زبان"
+    },
+    "admin": {
+        "projects": {
+            "new_project": "پروژه جدید",
+            "create": "ایجاد",
+            "update": "به‌روز رسانی",
+            "cancel": "لغو",
+            "title": "عنوان",
+            "projects": "پروژه ‌ها",
+            "board": {
+                "BACKLOG": "بک‌ لاگ",
+                "TODO": "برای انجام",
+                "IN_PROGRESS": "در حال انجام",
+                "DONE": "انجام شده",
+                "CANCEL": "لغو شده",
+                "assigned_to": "برای : ",
+                "title": "عنوان",
+                "description": "توضیحات",
+                "to_user": "انتخاب کاربر",
+                "create": "ایجاد",
+                "update": "به‌روز رسانی",
+                "cancel": "لغو",
+                "new_task": "وظیفه جدید",
+                "back_to_projects": "پروژه‌ها",
+                "board": "تابلو"
+            }
+        }
+    }
+}

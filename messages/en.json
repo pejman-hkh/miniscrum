@@ -1,0 +1,56 @@
+{
+    "direction": "ltr",
+    "auth": {
+        "login": {
+            "title": "MiniScrum",
+            "login": "Login",
+            "email": "Email Address",
+            "password": "Password",
+            "submit": "Login",
+            "no_account": "Don't have an account? ",
+            "register": "Sign up"
+        },
+        "register": {
+            "title": "MiniScrum",
+            "register": "Register",
+            "name": "Name",
+            "email": "Email Address",
+            "password": "Password",
+            "submit": "Register",
+            "login": "Already have an account? "
+        }
+    },
+    "common": {
+        "logout": "Logout",
+        "english": "English",
+        "persian": "Persian",
+        "select_language": "Language"
+    },
+    "admin": {
+        "projects": {
+            "new_project": "New Project",
+            "create": "Create",
+            "update": "Update",
+            "cancel": "Cancel",
+            "title": "Title",
+            "projects": "Projects",
+            "board": {
+                "BACKLOG": "Backlog",
+                "TODO": "To Do",
+                "IN_PROGRESS": "In Progress",
+                "DONE": "Done",
+                "CANCEL": "Cancelled",
+                "assigned_to": "To: ",
+                "title": "Title",
+                "description": "Description",
+                "to_user": "Select User",
+                "create": "Create",
+                "update": "Update",
+                "cancel": "Cancel",
+                "new_task": "New Task",
+                "back_to_projects": "Projects",
+                "board": "Board"
+            }
+        }
+    }
+}
