@@ -74,3 +74,17 @@ export async function PUT(req: Request) {
 
     return Response.json({ message: 'Updated successfully', data: task });
 }
+
+export async function DELETE(req: Request) {
+    const { id } = await req.json();
+
+    if (!id) {
+        return Response.json({ error: ["ID is required"] }, { status: 400 });
+    }
+
+    await prisma.task.delete({
+        where: { id }
+    });
+
+    return Response.json({ message: 'Deleted successfully' });
+}
