@@ -24,7 +24,10 @@
         "logout": "Logout",
         "english": "English",
         "persian": "Persian",
-        "select_language": "Language"
+        "select_language": "Language",
+        "yes": "Yes",
+        "no": "No",
+        "cancel": "Cancel"
     },
     "admin": {
         "projects": {
@@ -49,7 +52,9 @@
                 "cancel": "Cancel",
                 "new_task": "New Task",
                 "back_to_projects": "Projects",
-                "board": "Board"
+                "board": "Board",
+                "delete_task": "Delete Task",
+                "delete_task_confirm": "Are you sure you want to delete this task?"
             }
         }
     }

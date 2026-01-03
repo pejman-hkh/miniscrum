@@ -24,7 +24,10 @@
         "logout": "خروج",
         "english": "انگلیسی",
         "persian": "فارسی",
-        "select_language": "زبان"
+        "select_language": "زبان",
+        "yes": "بله",
+        "no": "خیر",
+        "cancel": "لغو"
     },
     "admin": {
         "projects": {
@@ -49,7 +52,9 @@
                 "cancel": "لغو",
                 "new_task": "وظیفه جدید",
                 "back_to_projects": "پروژه‌ها",
-                "board": "تابلو"
+                "board": "تابلو",
+                "delete_task": "حذف وظیفه",
+                "delete_task_confirm": "آیا از حذف این وظیفه اطمینان دارید ؟"
             }
         }
     }
