@@ -1,28 +1,9 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
-import Dropdown from "./Dropdown";
 
 export default function Nav({ title, children }: { title?: string, children?: React.ReactNode }) {
     const t = useTranslations('common');
-    //change lang handler
-    const changeLocale = (locale: string) => {
-        document.cookie = `locale=${locale}; path=/; max-age=31536000`;
-        window.location.reload();
-    }
-
-    const [lang, setLang] = useState<string>('en');
-
-    useEffect(() => {
-        // eslint-disable-next-line react-hooks/set-state-in-effect
-        setLang(
-            document.cookie
-                .split("; ")
-                .find((row) => row.startsWith("locale="))
-                ?.split("=")[1] || "en"
-        );
-    }, []);
 
     return (
         <nav className="bg-white border-b border-gray-200 p-4 mb-4">
@@ -32,18 +13,7 @@ export default function Nav({ title, children }: { title?: string, children?: Re
                     {children}
                 </div>
                 <div className="flex items-center">
-                    <Dropdown
-                        label={t('select_language')}
-                        value={lang}
-                        items={[
-                            { label: t('english'), value: "en" },
-                            { label: t('persian'), value: "fa" },
-                        ]}
-                        onChange={(value) => {
-                            changeLocale(value)
-                            setLang(value);
-                        }}
-                    />
+
                     <button onClick={async () => {
                         localStorage.removeItem("token");
                         await fetch("/api/auth/logout", { method: "POST" });

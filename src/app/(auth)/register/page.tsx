@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import AppLink from "@/components/Link";
 import FormError, { FormErrorType } from "@/components/FormError";
 import { useTranslations } from "next-intl";
+import Lang from "@/components/Lang";
 
 export default function RegisterPage() {
     const router = useRouter();
@@ -80,6 +81,9 @@ export default function RegisterPage() {
 
                     <div className="text-center text-sm">
                         <AppLink href="/login">{t('login')}</AppLink>
+                    </div>
+                    <div className="w-30 flex justify-center mx-auto mt-2">
+                        <Lang />
                     </div>
                 </form>
             </div>
