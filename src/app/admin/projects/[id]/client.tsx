@@ -16,7 +16,7 @@ export default function ProjectBoard({ project, users }: { project: ProjectType,
     return (
         <div>
             <Nav title={`${project.title} - ${t('board')}`}>
-                <AppLink href="/admin/projects" className="bg-blue-500 text-white px-4 py-2 rounded">
+                <AppLink href="/admin/projects" className="bg-blue-500 text-white px-4 py-2 rounded-2xl">
                     {t('back_to_projects')}
                 </AppLink>
             </Nav>
