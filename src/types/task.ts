@@ -10,7 +10,7 @@ export interface TaskType {
     status: TaskStatus;
     project: ProjectType;
     user?: UserType;
-    user_id: string;
-    project_id: string;
-    created_at: string;
+    userId: string;
+    projectId: string;
+    createdAt: string;
 }
