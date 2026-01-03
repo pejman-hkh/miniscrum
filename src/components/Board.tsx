@@ -1,7 +1,6 @@
 "use client";
 
 import FormError, { FormErrorType } from "@/components/FormError";
-import AppLink from "@/components/Link";
 import Modal from "@/components/Modal";
 import DataContext, { DataContextType } from "@/context/DataContext";
 import clientApi from "@/lib/api/clien";
@@ -9,9 +8,9 @@ import ProjectType from "@/types/project";
 import { TaskType } from "@/types/task";
 import UserType from "@/types/user";
 import {
-    closestCorners,
     DndContext,
     DragEndEvent,
+    rectIntersection,
     useDroppable
 } from "@dnd-kit/core";
 import {
@@ -23,7 +22,7 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import { EditIcon, PlusIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { use, useContext, useState } from "react";
+import { useContext, useState } from "react";
 
 const COLUMNS = [
     "BACKLOG",
@@ -282,7 +281,7 @@ export default function ProjectBoard({ project, users }: { project: ProjectType,
     return (<div>
 
         <DndContext
-            collisionDetection={closestCorners}
+            collisionDetection={rectIntersection}
             onDragOver={onDragOver}
             onDragEnd={onDragEnd}
         >
@@ -291,7 +290,7 @@ export default function ProjectBoard({ project, users }: { project: ProjectType,
                     <BoardColumn key={col} id={col}>
                         <h3 className="font-bold mb-2 flex justify-between items-center">
                             {t(col)}
-                            {col === 'BACKLOG' && <button onClick={() => setTaskModal({ project_id: project.id } as TaskType)}>
+                            {col === 'BACKLOG' && <button onClick={() => setTaskModal({ projectId: project.id } as TaskType)}>
                                 <PlusIcon size={16} className="text-green-500" />
                             </button>}
                         </h3>
