@@ -20,7 +20,7 @@ import {
     verticalListSortingStrategy
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { EditIcon, PlusIcon } from "lucide-react";
+import { EditIcon, PlusIcon, Trash2Icon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useContext, useState } from "react";
 
@@ -113,7 +113,7 @@ function TaskModal({ isOpen, onClose, onCreate, task, users }: { isOpen: boolean
     );
 }
 
-function TaskCard({ task, onEdit }: { task: TaskType, onEdit: () => void }) {
+function TaskCard({ task, onEdit, onDelete }: { task: TaskType, onEdit: () => void, onDelete: () => void }) {
     const { attributes, listeners, setNodeRef, transform, transition } =
         useSortable({ id: task.id });
 
@@ -142,8 +142,11 @@ function TaskCard({ task, onEdit }: { task: TaskType, onEdit: () => void }) {
                 {task?.user?.name && <div className={`text-xs text-gray-500 mt-1 ${(context?.user?.id === task.userId ? '!text-green-500' : '')}`}>{t('assigned_to')} {task.user.name}</div>}
             </div>
             <div>
-                <button onClick={onEdit} onPointerDown={(e) => e.stopPropagation()}>
+                <button className="me-2" onClick={onEdit} onPointerDown={(e) => e.stopPropagation()}>
                     <EditIcon className="text-orange-500 inline-block w-4 h-4" />
+                </button>
+                <button onClick={onDelete} onPointerDown={(e) => e.stopPropagation()}>
+                    <Trash2Icon className="text-red-500 inline-block w-4 h-4" />
                 </button>
             </div>
         </div>
@@ -278,6 +281,7 @@ export default function ProjectBoard({ project, users }: { project: ProjectType,
     }
     const t = useTranslations('admin.projects.board');
 
+    const { setConfirmation } = useContext(DataContext) as DataContextType;
     return (<div>
 
         <DndContext
@@ -300,7 +304,24 @@ export default function ProjectBoard({ project, users }: { project: ProjectType,
                             strategy={verticalListSortingStrategy}
                         >
                             {board[col].map(task => (
-                                <TaskCard key={task.id} task={task} onEdit={() => setTaskModal(task)} />
+                                <TaskCard key={task.id} task={task} onEdit={() => setTaskModal(task)} onDelete={() => {
+                                    setConfirmation({
+                                        isOpen: true,
+                                        title: t('delete_task'),
+                                        message: t('delete_task_confirm'),
+                                        onConfirm: async () => {
+                                            await clientApi(`/api/admin/tasks`, {
+                                                method: "DELETE",
+                                                body: JSON.stringify({ id: task.id })
+                                            });
+                                            onUpdate();
+                                            setConfirmation(null);
+                                        },
+                                        onCancel: () => {
+                                            setConfirmation(null);
+                                        }
+                                    });
+                                }} />
                             ))}
                         </SortableContext>
                     </BoardColumn>
