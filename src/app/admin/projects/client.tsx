@@ -7,7 +7,8 @@ import Nav from "@/components/Nat";
 import clientApi from "@/lib/api/clien";
 import ProjectType from "@/types/project";
 import { EditIcon } from "lucide-react";
-import { useState } from "react";
+import { use, useState } from "react";
+import { useTranslations } from "use-intl";
 
 
 interface ProjectModalProps {
@@ -20,6 +21,8 @@ interface ProjectModalProps {
 function ProjectModal({ isOpen, onClose, onCreate, project }: ProjectModalProps) {
     const [formData, setFormData] = useState<Record<string, unknown> | null>(project ? { ...project } : null);
     const [error, setError] = useState<FormErrorType | null>(null);
+
+    const t = useTranslations('admin.projects');
 
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
@@ -43,13 +46,13 @@ function ProjectModal({ isOpen, onClose, onCreate, project }: ProjectModalProps)
 
     return (
         <Modal isOpen={isOpen} onClose={onClose}>
-            <h2 className="text-xl font-bold mb-4">{formData?.id ? `Update ${formData?.title}` : 'New Project'}</h2>
+            <h2 className="text-xl font-bold mb-4">{formData?.id ? `${t('update')} ${formData?.title}` : t('new_project')}</h2>
             <FormError error={error} />
             <form onSubmit={handleSubmit} className="flex flex-col gap-3">
                 <input type="hidden" name="id" value={formData?.id as string || ""} />
                 <input
                     className="border border-gray-300 p-2 rounded"
-                    placeholder="Project title"
+                    placeholder={t('title')}
                     value={formData?.title as string || ""}
                     onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                     autoFocus
@@ -60,13 +63,13 @@ function ProjectModal({ isOpen, onClose, onCreate, project }: ProjectModalProps)
                         className="px-4 py-2 rounded border border-gray-300"
                         onClick={onClose}
                     >
-                        Cancel
+                        {t('cancel')}
                     </button>
                     <button
                         type="submit"
                         className="px-4 py-2 bg-blue-500 text-white rounded"
                     >
-                        {formData?.id ? 'Update' : 'Create'}
+                        {formData?.id ? t('update') : t('create')}
                     </button>
                 </div>
             </form>
@@ -88,16 +91,17 @@ export default function ProjectsClient({ projects }: { projects: ProjectType[] }
         setProjectsState(data?.data);
     };
 
+    const t = useTranslations('admin.projects');
     return (
         <div>
-            <Nav title="Projects">
+            <Nav title={t('projects')}>
                 <button onClick={() => setProjectModal({ id: "" } as ProjectType)} className="bg-blue-500 text-white px-4 py-2 rounded">
-                    New Project
+                    {t('new_project')}
                 </button>
             </Nav>
 
             <div className="p-6">
-                <div className="grid grid-cols-4 gap-4">
+                <div className="grid grid-col-1 md:grid-cols-4 gap-4">
                     {projectsState.map(project => (
                         <div
                             key={project.id}
