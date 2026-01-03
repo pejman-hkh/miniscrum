@@ -1,7 +1,7 @@
 "use client";
 
 import AppLink from "@/components/Link";
-import Nav from "@/components/Nat";
+import Nav from "@/components/Nav";
 import ProjectType from "@/types/project";
 import UserType from "@/types/user";
 import { useTranslations } from "next-intl";

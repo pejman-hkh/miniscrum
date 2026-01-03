@@ -3,7 +3,7 @@
 import FormError, { FormErrorType } from "@/components/FormError";
 import AppLink from "@/components/Link";
 import Modal from "@/components/Modal";
-import Nav from "@/components/Nat";
+import Nav from "@/components/Nav";
 import clientApi from "@/lib/api/clien";
 import ProjectType from "@/types/project";
 import { EditIcon } from "lucide-react";
