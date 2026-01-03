@@ -1,4 +1,5 @@
 "use client";
+import Confirmation, { ConfirmationProps } from "@/components/Confirmation";
 import DataContext from "@/context/DataContext";
 import clientApi from "@/lib/api/clien";
 import UserType from "@/types/user";
@@ -17,9 +18,18 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
         fetchUser();
     }, []);
 
+    const [confirmation, setConfirmation] = useState<ConfirmationProps | null>(null);
     return (
-        <DataContext value={{ user, setUser }}>
+        <DataContext value={{ user, setUser, confirmation, setConfirmation }}>
             {children}
+            <Confirmation
+                isOpen={!!confirmation}
+                title={confirmation?.title}
+                message={confirmation?.message}
+                onConfirm={confirmation?.onConfirm}
+                onCancel={confirmation?.onCancel}
+                onClose={() => setConfirmation(null)}
+            />
         </DataContext>
     );
 }
