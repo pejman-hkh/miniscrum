@@ -9,7 +9,7 @@ export async function GET() {
 export async function POST(req: Request) {
     //get user id from token in authorization header
 
-    const { title, project_id, userId, description } = await req.json();
+    const { title, projectId, userId, description } = await req.json();
     const nuserId = userId ?? await getUser(req);
 
     if (!title) {
@@ -19,13 +19,13 @@ export async function POST(req: Request) {
         );
     }
 
-    if (!project_id) {
+    if (!projectId) {
         return Response.json({ error: ["Project is required"] }, { status: 400 });
     }
 
     const lastTask = await prisma.task.findFirst({
         where: {
-            projectId: project_id,
+            projectId: projectId,
             status: 'BACKLOG'
         },
         orderBy: {
@@ -40,7 +40,7 @@ export async function POST(req: Request) {
             sortOrder: newSortOrder,
             status: 'BACKLOG',
             project: {
-                connect: { id: project_id }
+                connect: { id: projectId }
             },
             title,
             description: description || "",
