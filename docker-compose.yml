@@ -12,7 +12,7 @@ services:
     networks:
       - next-net
     volumes:
-      - ./data:/prisma
+      - ./database:/app/database
 
   nginx:
     image: nginx:alpine
