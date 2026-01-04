@@ -1,5 +1,3 @@
-# syntax=docker.io/docker/dockerfile:1
-
 FROM node:20-alpine AS base
 
 # Install dependencies only when needed
@@ -47,13 +45,14 @@ ENV NODE_ENV=production
 # Uncomment the following line in case you want to disable telemetry during runtime.
 # ENV NEXT_TELEMETRY_DISABLED=1
 
-RUN apk add --no-cache openssl
+#RUN apk add --no-cache openssl
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
 RUN chown -R nextjs:nodejs /app/src
 RUN chown -R nextjs:nodejs /app/prisma
+RUN chown -R nextjs:nodejs /app/database
 # COPY --from=builder /app/public ./public
 
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
